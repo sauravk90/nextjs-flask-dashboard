@@ -11,13 +11,18 @@ import {
 
 export type NodeData = {
   name: string;
+  ip: string;
+  started_at: string;
+  stopped: string;
+  uptime: string;
 };
 
-type NodeProps = {
+export type NodeProps = {
   nodeData: NodeData[];
 };
 
-export function NodeTable(data: NodeProps) {
+export function NodeTable(props: NodeProps) {
+  const data = props.nodeData;
   return (
     <Table>
       <TableCaption>GCP Nodes available</TableCaption>
@@ -31,13 +36,13 @@ export function NodeTable(data: NodeProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.nodeData.map((node) => (
+        {data.map((node) => (
           <TableRow key={node.name}>
             <TableCell className="font-medium">{node.name}</TableCell>
-            <TableCell>10.0.0.1</TableCell>
-            <TableCell>BLABLABLA</TableCell>
-            <TableCell>BLABLABLA</TableCell>
-            <TableCell>BLABLABLA</TableCell>
+            <TableCell>{node.ip}</TableCell>
+            <TableCell>{node.started_at}</TableCell>
+            <TableCell>{node.uptime}</TableCell>
+            <TableCell>{node.stopped}</TableCell>
           </TableRow>
         ))}
       </TableBody>
