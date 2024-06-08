@@ -1,6 +1,18 @@
+"use client";
+
 import Card, { CardProps } from "@/components/card";
 import PageHeader from "@/components/page-header";
-import { BadgeCheck, Clock4, Drill, LucideIcon, Monitor } from "lucide-react";
+import {
+  BadgeCheck,
+  Clock4,
+  Drill,
+  LucideIcon,
+  Monitor,
+  RefreshCcw,
+} from "lucide-react";
+import { revalidatePath } from "next/cache";
+import { useState } from "react";
+import { refreshDashboard } from "./actions";
 
 const cardData: CardProps[] = [
   {
@@ -36,9 +48,11 @@ const cardData: CardProps[] = [
 ];
 
 export default function Home() {
+  const [nodeData, setNodeData] = useState();
+
   return (
     <div className="w-full flex flex-col gap-5">
-      <PageHeader title="Dashboard" />
+      <PageHeader title="Dashboard" action={refreshDashboard} />
       <div className="grid w-full grid-cols-3 gap-4 gap-x-8 transition-all">
         {cardData.map((d, i) => (
           <Card
